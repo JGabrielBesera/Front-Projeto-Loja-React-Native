@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         width: '95%',
         flexDirection: 'row',
+        border: 1
         
     },
     pesquisar: {
@@ -35,11 +36,13 @@ const styles = StyleSheet.create({
         borderBottomLeftRadius: 5,
         borderTopLeftRadius: 5,
         flexDirection: 'row',
-        backgroundColor: '#aaaaaa',
+        backgroundColor: '#fff',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        paddingStart: 10
+        paddingStart: 10,
+        borderWidth: 1,
+
     
     },
     input: {
@@ -56,9 +59,12 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#aaaaaa',
+        backgroundColor: '#b5b5b5',
         borderBottomRightRadius: 5,
         borderTopRightRadius: 5,
+        borderTopWidth: 1,
+        borderBottomWidth: 1,
+        borderRightWidth: 1,
 
     },
     foto_carrinho: {
