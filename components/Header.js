@@ -9,7 +9,7 @@ const Header = () => {
                 <Image style={styles.foto_pesquisar} source={require('../assets/images/icon-pesquisar.png')}/>
                 <TextInput 
                 style={styles.input}
-                placeholder='Pesquisar Por'
+                placeholder='Pesquisar Por:'
                 />
             </View>
             <View style={styles.carrinho}>
@@ -22,11 +22,10 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     header: {
-        margin: '2.5%',
         height: 40,
         display: 'flex',
         justifyContent: 'space-between',
-        width: '95%',
+        width: '100%',
         flexDirection: 'row',
         border: 1
         

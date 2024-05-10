@@ -1,24 +1,96 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { StyleSheet } from 'react-native';
+import Home from './screens/Home';
+import ListCamisetas from './screens/ListCamisetas';
+import CadastrarProduto from './screens/CadastrarProdutos';
+import { Feather } from '@expo/vector-icons'
 
-import Header from './components/Header';
+const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
+
 
 export default function App() {
   return (
-    
-    <View style={styles.body}>
-      <Header/>
-      <Text>App!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <NavigationContainer>
+      <Stack.Navigator>
+      <Stack.Screen
+          name="Main"
+          component={MainNavigator}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="CadastrarProduto"
+          component={CadastrarProduto}
+          options={{
+            headerShown: false
+          }}
+        />
+        <Stack.Screen
+          name="ListCamisetas"
+          component={ListCamisetas}
+          options={{
+            headerShown: false
+          }}
+        />
+
+        {/* <Stack.Screen
+        name="CadastrarProduto"
+        component={CadastrarProduto} 
+        options={{
+          headerShown: false
+        }}
+        /> */}
+
+        
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
 }
+
+const MainNavigator = () => {
+  return (
+    <Tab.Navigator screenOptions={{
+      headerStyle: { backgroundColor: '#000' },
+      headerTitleStyle: { color: "#FFF" },
+      tabBarShowLabel: false
+    }}>
+      <Tab.Screen
+        name="home"
+        component={Home}
+        options={{
+          headerShown: false,
+          tabBarIcon: () => (
+            <Feather name="home" color={{ color: "#000" }} size={25} />
+          )
+        }}
+      />
+      <Tab.Screen name="perfil" 
+      component={Home} o
+      ptions={{
+        tabBarIcon: () => (
+          <Feather name="shopping-cart" size={24} color="black" />
+        )
+      }} />
+      <Tab.Screen name="favoritos" component={Home} options={{
+        tabBarIcon: () => (
+          <Feather name="user" size={24} color="black" />
+        )
+      }} />
+    </Tab.Navigator>
+  )
+}
+
 
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#aaaaaa',
 
   }
-  
+
 });
