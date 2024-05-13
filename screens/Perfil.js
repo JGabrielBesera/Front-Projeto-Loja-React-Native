@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
 import CardProduct from '../components/CardProduct';
 
-const Favoritos = () => {
+const Perfil = () => {
     const navigation = useNavigation();
 
     return (
@@ -11,7 +11,7 @@ const Favoritos = () => {
             <Header />
             <View style={styles.page}>
                 <View style={styles.title}>
-                    <Text> Seus Favoritos</Text>
+                    <Text> Seu Perfil</Text>
                 </View>
 
             </View>
@@ -45,4 +45,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Favoritos
+export default Perfil

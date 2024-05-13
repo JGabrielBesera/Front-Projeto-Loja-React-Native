@@ -6,6 +6,8 @@ import { StyleSheet } from 'react-native';
 import Home from './screens/Home';
 import ListCamisetas from './screens/ListCamisetas';
 import CadastrarProduto from './screens/CadastrarProdutos';
+import Favoritos from './screens/Favoritos';
+import Perfil from './screens/Perfil';
 import { Feather } from '@expo/vector-icons'
 
 const Stack = createNativeStackNavigator()
@@ -70,15 +72,16 @@ const MainNavigator = () => {
         }}
       />
       <Tab.Screen name="perfil" 
-      component={Home} o
-      ptions={{
-        tabBarIcon: () => (
-          <Feather name="shopping-cart" size={24} color="black" />
-        )
-      }} />
-      <Tab.Screen name="favoritos" component={Home} options={{
+      component={Perfil} options={{
+        headerShown: false,
         tabBarIcon: () => (
           <Feather name="user" size={24} color="black" />
+        )
+      }} />
+      <Tab.Screen name="favoritos" component={Favoritos} options={{
+        headerShown: false,
+        tabBarIcon: () => (
+          <Feather name="heart" size={24} color="black" />
         )
       }} />
     </Tab.Navigator>

@@ -1,4 +1,4 @@
-import { StyleSheet, TouchableOpacity, ImageBackground, Text, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, ImageBackground, Text, View, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
 import ListCamisetas from './ListCamisetas';
@@ -8,7 +8,7 @@ const Home = () => {
     const navigation = useNavigation();
 
     return (
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.banner}>
                 <ImageBackground source={require('../assets/images/icon-pesquisar.png')}>
                     <Header />
@@ -25,21 +25,40 @@ const Home = () => {
                     <View style={styles.products}>
                         <CardProduct/>
                     </View>
-
-                </View>
-
+                </View> 
+                <View style={styles.listProducts}>
+                    <View style={styles.title}>
+                        <Text> Conheça Nossas Camisetas</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('ListCamisetas')}>
+                            <Text style={styles.ver}>Ver Todas</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.products}>
+                        <CardProduct />
+                    </View>
+                </View>  
+                <View style={styles.listProducts}>
+                    <View style={styles.title}>
+                        <Text> Conheça Nossas Camisetas</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('ListCamisetas')}>
+                            <Text style={styles.ver}>Ver Todas</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.products}>
+                        <CardProduct />
+                    </View>
+                </View>              
             </View>
 
 
 
-        </View>
+        </ScrollView>
     )
 
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         backgroundColor: '#000000',
         padding: "2.5%"
     },

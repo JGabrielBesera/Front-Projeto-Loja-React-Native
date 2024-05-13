@@ -1,26 +1,86 @@
-import { StyleSheet, TouchableOpacity, ImageBackground, Text, View } from 'react-native'
+import { StyleSheet, ScrollView, View, TextInput, ImageBackground } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { useState } from 'react'
 import Header from '../components/Header'
-import CardProduct from '../components/CardProduct';
+import Button from '../components/Button';
 
 const CadastrarProduto = () => {
-    const navigation = useNavigation();
+    const navigation = useNavigation()
+
+    const [txtNome, setTxtNome] = useState('')
+    const [txtPhoto, setTxtPhoto] = useState('')
+    const [txtPrice, setTxtPrice] = useState('')
+    const [txtDesc, setTxtDesc] = useState('')
+    const [txtCat, setTxtCat] = useState('')
+
+    const postProduto = async () => {
+        try {
+            //const result = await fetch('https://backend-api-express-1sem2024-rbd1.onrender.com/user', {
+            const result = await fetch('http://localhost:3333/produto', {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ nome: txtNome, photo: txtPhoto, preco: txtPrice, descricao: txtDesc, categoria: txtCat})
+            })
+            const data = await result.json()
+            console.log(data)
+            if (data?.success) {
+                navigation.goBack()
+            } else {
+                alert(data.error)
+            }
+        } catch (error) {
+            console.log('Error postProduto ' + error.message)
+            alert(error.message)
+        }
+    }
 
     return (
-        <View style={styles.container}>
-            <Header />
-            <View style={styles.page}>
-                    <View style={styles.title}>
-                        <Text> Cadastrar Novo Produto</Text>
-                    </View>
-
+        <ScrollView style={styles.container}>
+            <View style={styles.banner}>
+                <ImageBackground source={require('../assets/images/icon-pesquisar.png')}>
+                    <Header />
+                </ImageBackground>
             </View>
-
-
-
-        </View>
+            <View style={styles.form}>
+                <TextInput
+                    style={styles.input}
+                    placeholder='Nome...'
+                    onChangeText={setTxtNome}
+                    value={txtNome}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Foto...'
+                    onChangeText={setTxtPhoto}
+                    value={txtPhoto}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Categoria...'
+                    onChangeText={setTxtCat}
+                    value={txtCat}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Preço...'
+                    onChangeText={setTxtPrice}
+                    value={txtPrice}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Descrição...'
+                    onChangeText={setTxtDesc}
+                    value={txtDesc}
+                />
+                <Button
+                    title="Cadastrar Produto"
+                    onPress={postProduto}
+                />
+            </View>
+        </ScrollView>
     )
-
 }
 
 const styles = StyleSheet.create({
@@ -29,19 +89,17 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000',
         padding: "2.5%"
     },
-
-    page: {
-        backgroundColor: '#c9bdc0',
-        flex: 1
+    banner: {
+        height: 150,
+        backgroundColor: '#ff7799'
     },
-
-    title: {
-        flexDirection: 'row',
-        paddingBottom: 20
-    },
-    ver: {
-        paddingStart: 40,
-        textDecorationLine: 'underline'
+    input: {
+        height: 40,
+        width: '100%',
+        backgroundColor: '#FFF',
+        borderWidth: 1,
+        marginTop: 18,
+        padding: 10,
     }
 })
 
