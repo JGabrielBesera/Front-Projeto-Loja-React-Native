@@ -2,12 +2,13 @@ import { StyleSheet, TouchableOpacity, ImageBackground, Text, View } from 'react
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
 import CardProduct from '../components/CardProduct';
-
+import Button from '../components/Button'
 
 const Home = () => {
     const navigation = useNavigation();
 
     return (
+        
         <View style={styles.container}>
             <View style={styles.banner}>
                 <ImageBackground source={require('../assets/images/icon-pesquisar.png')}>
@@ -18,12 +19,14 @@ const Home = () => {
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
                         <Text> Todas as Camisetas</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('CadastrarProduto')}>
-                            <Text style={styles.ver}>Ver Todas</Text>
-                        </TouchableOpacity>
+                        <Button
+                            title="Cadastrar Novo"
+                            onPress={() => navigation.navigate('CadastrarProduto')}
+                        />
+
                     </View>
                     <View style={styles.products}>
-                        <CardProduct/>
+                        <CardProduct />
                     </View>
 
                 </View>

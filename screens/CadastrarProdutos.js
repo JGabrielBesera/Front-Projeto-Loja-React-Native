@@ -1,10 +1,14 @@
 import { StyleSheet, ScrollView, View, TextInput, ImageBackground } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native'
 import { useState } from 'react'
 import Header from '../components/Header'
 import Button from '../components/Button';
 
+
+
 const CadastrarProduto = () => {
+
     const navigation = useNavigation()
 
     const [txtNome, setTxtNome] = useState('')
@@ -82,6 +86,7 @@ const CadastrarProduto = () => {
         </ScrollView>
     )
 }
+
 
 const styles = StyleSheet.create({
     container: {

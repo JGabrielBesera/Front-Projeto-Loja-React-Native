@@ -19,33 +19,55 @@ const Home = () => {
                     <View style={styles.title}>
                         <Text> Conheça Nossas Camisetas</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('ListCamisetas')}>
-                            <Text style={styles.ver}>Ver Todas</Text>
+                            <Text style={styles.ver}>Ver Tudo</Text>
                         </TouchableOpacity>
                     </View>
-                    <View style={styles.products}>
+                    <ScrollView horizontal={true} style={styles.products}>
                         <CardProduct/>
-                    </View>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                    </ScrollView>
                 </View> 
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
-                        <Text> Conheça Nossas Camisetas</Text>
+                        <Text> Conheça Nossos Bones</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('ListCamisetas')}>
-                            <Text style={styles.ver}>Ver Todas</Text>
+                            <Text style={styles.ver}>Ver Tudo</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.products}>
-                        <CardProduct />
+                    <ScrollView horizontal={true} style={styles.products}>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                    </ScrollView>
                     </View>
                 </View>  
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
-                        <Text> Conheça Nossas Camisetas</Text>
+                        <Text> Conheça Nossas Bolsas</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('ListCamisetas')}>
-                            <Text style={styles.ver}>Ver Todas</Text>
+                            <Text style={styles.ver}>Ver Tudo</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={styles.products}>
-                        <CardProduct />
+                    <ScrollView horizontal={true} style={styles.products}>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                        <CardProduct/>
+                    </ScrollView>
                     </View>
                 </View>              
             </View>
@@ -59,7 +81,7 @@ const Home = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#000000',
+
         padding: "2.5%"
     },
     banner: {
