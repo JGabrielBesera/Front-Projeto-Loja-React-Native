@@ -20,12 +20,18 @@ const CadastrarProduto = () => {
     const postProduto = async () => {
         try {
             //const result = await fetch('https://backend-api-express-1sem2024-rbd1.onrender.com/user', {
-            const result = await fetch('http://localhost:3333/produto', {
+            const result = await fetch('http://localhost:3333/produtos', {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ nome: txtNome, photo: txtPhoto, preco: txtPrice, descricao: txtDesc, categoria: txtCat})
+                body: JSON.stringify({ 
+                    nome: txtNome, 
+                    photo: txtPhoto, 
+                    preco: parseInt(txtPrice), // Convertendo para inteiro
+                    descricao: txtDesc, 
+                    categoria: parseInt(txtCat) // Convertendo para inteiro
+                })
             })
             const data = await result.json()
             console.log(data)

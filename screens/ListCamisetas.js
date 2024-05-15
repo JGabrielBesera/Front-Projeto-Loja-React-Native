@@ -1,15 +1,37 @@
-import { StyleSheet, TouchableOpacity, ImageBackground, Text, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, ImageBackground, Text, View, ScrollView, FlatList } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
+import CadastrarProduto from './CadastrarProdutos';
 import CardProduct from '../components/CardProduct';
-import Button from '../components/Button'
+import { useState, useEffect } from 'react';
 
-const Home = () => {
+const ListCamisetas = () => {
+
     const navigation = useNavigation();
+    const [produtos, setProdutos] = useState([]);
+    useEffect(() => {
+        const ListAllProdutos = async () => {
+            try {
+                const result = await fetch('http://localhost:3333/produtos', {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                });
+                const data = await result.json();
+                console.log(data.success);
+                setProdutos(data.produtos);
+            } catch (error) {
+                console.log('Error ListAllProdutos ' + error.message);
+            }
+        };
+        ListAllProdutos();
+    }, []);
+
+
 
     return (
-        
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
             <View style={styles.banner}>
                 <ImageBackground source={require('../assets/images/icon-pesquisar.png')}>
                     <Header />
@@ -18,16 +40,21 @@ const Home = () => {
             <View style={styles.page}>
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
-                        <Text> Todas as Camisetas</Text>
-                        <Button
-                            title="Cadastrar Novo"
-                            onPress={() => navigation.navigate('CadastrarProduto')}
+                        <Text> Conheça Nossas Camisetas</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('CadastrarProduto')}>
+                            <Text style={styles.ver}>Ver Tudo</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <ScrollView style={styles.products}>
+                        <FlatList
+                            numColumns={3}
+                            style={{ width: '100%' }}
+                            data={produtos.filter(item => item.categoria === 1)}
+                            renderItem={({ item }) => <CardProduct produtos={item} />}
+                            keyExtractor={item => item.id}
                         />
 
-                    </View>
-                    <View style={styles.products}>
-                        <CardProduct />
-                    </View>
+                    </ScrollView>
 
                 </View>
 
@@ -35,15 +62,13 @@ const Home = () => {
 
 
 
-        </View>
+        </ScrollView>
     )
 
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        backgroundColor: '#000000',
         padding: "2.5%"
     },
     banner: {
@@ -51,8 +76,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ff7799'
     },
     page: {
-        backgroundColor: '#c9bdc0',
-        flex: 1
+        backgroundColor: '#c9bdc1',
+        height: "100%"
     },
     listProducts: {
         marginTop: 20,
@@ -68,4 +93,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default Home
+export default ListCamisetas

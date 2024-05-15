@@ -1,19 +1,22 @@
 import { StyleSheet, Text, View } from 'react-native'
 import { Image } from 'expo-image'
+import { useNavigation } from '@react-navigation/native'
 
+const CardProduct = ({ produtos }) => {
+        // Verificar se produtos está definido e não é vazio
+        if (!produtos || !produtos.photo || !produtos.nome || !produtos.preco) {
+            return null; // Se os dados não estiverem disponíveis, retornar nulo para não renderizar nada
+        }
 
-
-const CardProduct = () => {
     return (
         <View style={styles.card}>
             <View style={styles.photo}>
-                <Image style={styles.photoImg}
-                // source={camiseta.photo}/> 
-                source={require('../assets/images/icon-pesquisar.png')}/>
+                <Image style={styles.photoImg} source={produtos.photo}/>
             </View>
             <View style={styles.title}>
-                <Text style={styles.title}>"Camiseta "Eu amo o Flavio Mesmo"</Text>
-                <Text style={styles.title}> R$ 10.00</Text>
+                {/* Verificar se as propriedades estão definidas antes de acessá-las */}
+                <Text>{produtos.nome}</Text>
+                <Text>R$ {produtos.preco}</Text>
             </View>
         </View>
     )
@@ -21,6 +24,7 @@ const CardProduct = () => {
 
 const styles = StyleSheet.create({
     card: {
+        marginBottom: 15,
         marginEnd: 15,
         borderRadius: 10,
         height: 200,
@@ -28,15 +32,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#bdc9c6'
     },
     photoImg: {
-        width: 125  ,
+        borderRadius: 10,
+        width: 125,
         height: 125,
     },
     title: {
         marginTop: 4
     },
-    title: {
-        marginTop: 4
-    }
 })
 
 export default CardProduct

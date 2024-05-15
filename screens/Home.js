@@ -1,11 +1,33 @@
-import { StyleSheet, TouchableOpacity, ImageBackground, Text, View, ScrollView } from 'react-native'
+import { StyleSheet, TouchableOpacity, ImageBackground, Text, View, ScrollView, FlatList} from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
-import ListCamisetas from './ListCamisetas';
 import CardProduct from '../components/CardProduct';
+import { useState, useEffect } from 'react';
 
 const Home = () => {
+
     const navigation = useNavigation();
+    const [produtos, setProdutos] = useState([]);
+    useEffect(() => {
+        const ListAllProdutos = async () => {
+            try {
+                const result = await fetch('http://localhost:3333/produtos', {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                });
+                const data = await result.json();
+                console.log(data.success);
+                setProdutos(data.produtos);
+            } catch (error) {
+                console.log('Error ListAllProdutos ' + error.message);
+            }
+        };
+        ListAllProdutos();
+    }, []);
+
+    
 
     return (
         <ScrollView style={styles.container}>
@@ -23,15 +45,15 @@ const Home = () => {
                         </TouchableOpacity>
                     </View>
                     <ScrollView horizontal={true} style={styles.products}>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
+                    <FlatList
+                    horizontal={true}
+                        style={{ width: '100%' }}
+                        data={produtos.filter(item => item.categoria === 1)}
+                        renderItem={({ item }) => <CardProduct produtos={item} />}
+                        keyExtractor={item => item.id}
+                    />
                     </ScrollView>
-                </View> 
+                </View>
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
                         <Text> Conheça Nossos Bones</Text>
@@ -41,16 +63,16 @@ const Home = () => {
                     </View>
                     <View style={styles.products}>
                     <ScrollView horizontal={true} style={styles.products}>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
+                    <FlatList
+                    horizontal={true}
+                        style={{ width: '100%' }}
+                        data={produtos.filter(item => item.categoria === 2)}
+                        renderItem={({ item }) => <CardProduct produtos={item} />}
+                        keyExtractor={item => item.id}
+                    />
                     </ScrollView>
                     </View>
-                </View>  
+                </View>
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
                         <Text> Conheça Nossas Bolsas</Text>
@@ -60,16 +82,16 @@ const Home = () => {
                     </View>
                     <View style={styles.products}>
                     <ScrollView horizontal={true} style={styles.products}>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
-                        <CardProduct/>
+                    <FlatList
+                    horizontal={true}
+                        style={{ width: '100%' }}
+                        data={produtos.filter(item => item.categoria === 3)}
+                        renderItem={({ item }) => <CardProduct produtos={item} />}
+                        keyExtractor={item => item.id}
+                    />
                     </ScrollView>
                     </View>
-                </View>              
+                </View>
             </View>
 
 
