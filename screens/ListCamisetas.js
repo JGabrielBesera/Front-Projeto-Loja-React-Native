@@ -8,7 +8,7 @@ import { useState, useEffect } from 'react';
 const ListCamisetas = () => {
 
     const navigation = useNavigation();
-    const [produtos, setProdutos] = useState([]);
+    const [produto, setProduto] = useState([]);
     useEffect(() => {
         const ListAllProdutos = async () => {
             try {
@@ -20,7 +20,7 @@ const ListCamisetas = () => {
                 });
                 const data = await result.json();
                 console.log(data.success);
-                setProdutos(data.produtos);
+                setProduto(data.produtos);
             } catch (error) {
                 console.log('Error ListAllProdutos ' + error.message);
             }
@@ -42,15 +42,15 @@ const ListCamisetas = () => {
                     <View style={styles.title}>
                         <Text> Conheça Nossas Camisetas</Text>
                         <TouchableOpacity onPress={() => navigation.navigate('CadastrarProduto')}>
-                            <Text style={styles.ver}>Ver Tudo</Text>
+                            <Text style={styles.ver}>Cadastrar</Text>
                         </TouchableOpacity>
                     </View>
                     <ScrollView style={styles.products}>
                         <FlatList
                             numColumns={3}
                             style={{ width: '100%' }}
-                            data={produtos.filter(item => item.categoria === 1)}
-                            renderItem={({ item }) => <CardProduct produtos={item} />}
+                            data={produto.filter(item => item.categoria === 1)}
+                            renderItem={({ item }) => <CardProduct produto={item} />}
                             keyExtractor={item => item.id}
                         />
 

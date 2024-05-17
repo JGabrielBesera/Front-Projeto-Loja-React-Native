@@ -2,7 +2,9 @@ import { StyleSheet, TouchableOpacity, ImageBackground, Text, View, ScrollView, 
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
 import CardProduct from '../components/CardProduct';
+
 import { useState, useEffect } from 'react';
+
 
 const Home = () => {
 
@@ -49,15 +51,15 @@ const Home = () => {
                     horizontal={true}
                         style={{ width: '100%' }}
                         data={produtos.filter(item => item.categoria === 1)}
-                        renderItem={({ item }) => <CardProduct produtos={item} />}
+                        renderItem={({ item }) => <CardProduct produto={item} />}
                         keyExtractor={item => item.id}
                     />
                     </ScrollView>
                 </View>
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
-                        <Text> Conheça Nossos Bones</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('ListCamisetas')}>
+                        <Text> Conheça Nossos Bonés</Text>
+                        <TouchableOpacity onPress={() => navigation.navigate('ListBones')}>
                             <Text style={styles.ver}>Ver Tudo</Text>
                         </TouchableOpacity>
                     </View>
@@ -67,7 +69,7 @@ const Home = () => {
                     horizontal={true}
                         style={{ width: '100%' }}
                         data={produtos.filter(item => item.categoria === 2)}
-                        renderItem={({ item }) => <CardProduct produtos={item} />}
+                        renderItem={({ item }) => <CardProduct produto={item} />}
                         keyExtractor={item => item.id}
                     />
                     </ScrollView>
@@ -76,7 +78,7 @@ const Home = () => {
                 <View style={styles.listProducts}>
                     <View style={styles.title}>
                         <Text> Conheça Nossas Bolsas</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate('ListCamisetas')}>
+                        <TouchableOpacity onPress={() => navigation.navigate('ListBolsas')}>
                             <Text style={styles.ver}>Ver Tudo</Text>
                         </TouchableOpacity>
                     </View>
@@ -86,7 +88,7 @@ const Home = () => {
                     horizontal={true}
                         style={{ width: '100%' }}
                         data={produtos.filter(item => item.categoria === 3)}
-                        renderItem={({ item }) => <CardProduct produtos={item} />}
+                        renderItem={({ item }) => <CardProduct produto={item} />}
                         keyExtractor={item => item.id}
                     />
                     </ScrollView>

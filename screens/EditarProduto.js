@@ -1,51 +1,86 @@
 import { StyleSheet, ScrollView, View, TextInput, ImageBackground } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native'
+import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState } from 'react'
 import Header from '../components/Header'
 import Button from '../components/Button';
+import ButtonRed from '../components/ButtonRed';
 import { BASE_URL } from '../config';
+import useProudutoStore from '../stores/produtoStore';
 
 
 
-const CadastrarProduto = () => {
+const EditarProduto = () => {
+
+    const route = useRoute()
+
+    const editProdutoStore = useProudutoStore((state) => state.editProduto)
+    const removeProdutoStore = useProudutoStore((state) => state.removeProduto)
+    const { produto } = route.params
+
+
 
     const navigation = useNavigation()
-
-    const [txtNome, setTxtNome] = useState('')
-    const [txtPhoto, setTxtPhoto] = useState('')
-    const [txtPrice, setTxtPrice] = useState('')
-    const [txtDesc, setTxtDesc] = useState('')
-    const [txtCat, setTxtCat] = useState('')
+    console.log(produto);
+    const [txtNome, setTxtNome] = useState(produto.nome)
+    const [txtPhoto, setTxtPhoto] = useState(produto.photo)
+    const [txtPrice, setTxtPrice] = useState(produto.preco)
+    const [txtDesc, setTxtDesc] = useState(produto.descricao)
+    const [txtCat, setTxtCat] = useState(produto.categoria)
 
     const postProduto = async () => {
         try {
-            //const result = await fetch('https://backend-api-express-1sem2024-rbd1.onrender.com/user', {
-            const result = await fetch(`${BASE_URL}/produtos`, {
-                method: "POST",
+            const result = await fetch(`${BASE_URL}/produtos/${produto.id}`, {
+                method: "PUT",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ 
-                    nome: txtNome, 
-                    photo: txtPhoto, 
+                body: JSON.stringify({
+                    nome: txtNome,
+                    photo: txtPhoto,
                     preco: parseInt(txtPrice), // Convertendo para inteiro
-                    descricao: txtDesc, 
+                    descricao: txtDesc,
                     categoria: parseInt(txtCat) // Convertendo para inteiro
                 })
-            })
-            const data = await result.json()
-            console.log(data)
+
+            });
+            console.log(result);
+
+            const data = await result.json();
+            console.log(data);
             if (data?.success) {
-                navigation.goBack()
+                editProdutoStore(produto.id, data.produtos);
+                navigation.goBack();
             } else {
-                alert(data.error)
+                alert(data.error);
             }
         } catch (error) {
-            console.log('Error postProduto ' + error.message)
-            alert(error.message)
+            console.log('Error postProduto ' + error.message);
+            alert(error.message);
         }
-    }
+    };
+
+        const removeUser = async () =>{
+      try{
+        const result = await fetch(`${BASE_URL}/produtos/${produto.id}`, {
+          method: "DELETE",
+          headers:{
+            "Content-Type": "application/json"
+          }
+        })
+        const data = await result.json()
+        console.log(data)
+        if(data?.success){
+            removeProdutoStore(produto.id)
+          navigation.goBack()
+        } else {
+          alert(data.error)
+        }
+      } catch (error){
+        console.log('Error removeUser ' + error.message)
+        alert(error.message)
+      }
+    } 
+
 
     return (
         <ScrollView style={styles.container}>
@@ -80,14 +115,19 @@ const CadastrarProduto = () => {
                     value={txtPrice}
                 />
                 <TextInput
-                    style={styles.input}
+                    
                     placeholder='Descrição...'
                     onChangeText={setTxtDesc}
                     value={txtDesc}
                 />
                 <Button
-                    title="Cadastrar Produto"
+                    title="Editar Produto"
                     onPress={postProduto}
+                />
+                <ButtonRed
+                
+                    title="Excluir Produto"
+                    onPress={removeUser}
                 />
             </View>
         </ScrollView>
@@ -101,6 +141,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#000000',
         padding: "2.5%"
     },
+    button: {
+        backgroundColor: "#ff0000",
+        borderRadius: 20,
+        paddingVertical: 8,
+        paddingHorizontal: 28,
+    },
     banner: {
         height: 150,
         backgroundColor: '#ff7799'
@@ -112,7 +158,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginTop: 18,
         padding: 10,
-    }
+    },
 })
 
-export default CadastrarProduto
+export default EditarProduto
