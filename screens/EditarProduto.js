@@ -49,6 +49,7 @@ const EditarProduto = () => {
             console.log(data);
             if (data?.success) {
                 editProdutoStore(produto.id, data.produtos);
+                console.log(data.produtos)
                 navigation.goBack();
             } else {
                 alert(data.error);
@@ -70,7 +71,7 @@ const EditarProduto = () => {
         const data = await result.json()
         console.log(data)
         if(data?.success){
-            removeProdutoStore(produto.id)
+        removeProdutoStore(produto.id)
           navigation.goBack()
         } else {
           alert(data.error)
@@ -115,7 +116,7 @@ const EditarProduto = () => {
                     value={txtPrice}
                 />
                 <TextInput
-                    
+                    style={styles.input}
                     placeholder='Descrição...'
                     onChangeText={setTxtDesc}
                     value={txtDesc}

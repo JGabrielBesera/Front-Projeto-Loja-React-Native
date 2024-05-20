@@ -27,6 +27,7 @@ function MainNavigator() {
           headerShown: false
         }}
       />
+
       <Stack.Screen
         name="CadastrarProduto"
         component={CadastrarProduto}
