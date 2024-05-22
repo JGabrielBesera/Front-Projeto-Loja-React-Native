@@ -1,9 +1,10 @@
-import { StyleSheet, ScrollView, View, TextInput, ImageBackground } from 'react-native'
+import { StyleSheet, ScrollView, View, Text, TextInput, ImageBackground } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState } from 'react'
 import Header from '../components/Header'
 import Button from '../components/Button';
 import ButtonRed from '../components/ButtonRed';
+import HeaderCrud from '../components/HeaderCrud';
 import { BASE_URL } from '../config';
 import useProudutoStore from '../stores/produtoStore';
 
@@ -44,51 +45,57 @@ const EditarProduto = () => {
 
             });
             console.log(result);
-
             const data = await result.json();
             console.log(data);
             if (data?.success) {
                 editProdutoStore(produto.id, data.produtos);
-                console.log(data.produtos)
+                console.log(data.produtos,
+                    result.status
+                )
                 navigation.goBack();
             } else {
-                alert(data.error);
+
+                for (const key in data.fields) {
+                    const elem = data.fields[key]
+
+                    const msg = elem.messages.map(v => v + "\n")
+
+                    alert(msg)
+                }
             }
         } catch (error) {
             console.log('Error postProduto ' + error.message);
-            alert(error.message);
+            console.log(error);
         }
     };
 
-        const removeUser = async () =>{
-      try{
-        const result = await fetch(`${BASE_URL}/produtos/${produto.id}`, {
-          method: "DELETE",
-          headers:{
-            "Content-Type": "application/json"
-          }
-        })
-        const data = await result.json()
-        console.log(data)
-        if(data?.success){
-        removeProdutoStore(produto.id)
-          navigation.goBack()
-        } else {
-          alert(data.error)
+    const removeUser = async () => {
+        try {
+            const result = await fetch(`${BASE_URL}/produtos/${produto.id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            const data = await result.json()
+            console.log(data)
+            if (data?.success) {
+                removeProdutoStore(produto.id)
+                navigation.goBack()
+            } else {
+                alert(data.error)
+            }
+        } catch (error) {
+            console.log('Error removeUser ' + error.message)
+            alert(error.message)
         }
-      } catch (error){
-        console.log('Error removeUser ' + error.message)
-        alert(error.message)
-      }
-    } 
+    }
 
 
     return (
         <ScrollView style={styles.container}>
             <View style={styles.banner}>
-                <ImageBackground source={require('../assets/images/icon-pesquisar.png')}>
-                    <Header />
-                </ImageBackground>
+                <HeaderCrud title={"Editar Produto"}/>
             </View>
             <View style={styles.form}>
                 <TextInput
@@ -126,7 +133,7 @@ const EditarProduto = () => {
                     onPress={postProduto}
                 />
                 <ButtonRed
-                
+
                     title="Excluir Produto"
                     onPress={removeUser}
                 />

@@ -9,8 +9,10 @@ import ListBones from './screens/ListBones';
 import ListBolsas from './screens/ListBolsas';
 import EditarProduto from './screens/EditarProduto';
 import CadastrarProduto from './screens/CadastrarProdutos';
+import CadastrarUser from './screens/CadastrarUser';
 import Favoritos from './screens/Favoritos';
 import Perfil from './screens/Perfil';
+import EditarUser from './screens/EditarUser';
 import { Feather } from '@expo/vector-icons'
 
 const Stack = createNativeStackNavigator()
@@ -21,7 +23,7 @@ function MainNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Home"
+        name="Main"
         component={Home}
         options={{
           headerShown: false
@@ -38,6 +40,60 @@ function MainNavigator() {
       <Stack.Screen
         name="ListCamisetas"
         component={ListCamisetas}
+        options={{
+          headerShown: false
+        }}
+      />
+
+      <Stack.Screen
+        name="ListBones"
+        component={ListBones}
+        options={{
+          headerShown: false
+        }}
+      />
+
+      <Stack.Screen
+        name="ListBolsas"
+        component={ListBolsas}
+        options={{
+          headerShown: false
+        }}
+      />
+
+      <Stack.Screen
+        name="EditarProduto"
+        component={EditarProduto}
+        options={{
+          headerShown: false
+        }}
+      />
+    </Stack.Navigator>
+
+  )
+}
+
+function PerfilNavigator() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="Perfil"
+        component={Perfil}
+        options={{
+          headerShown: false
+        }}
+      />
+
+      <Stack.Screen
+        name="CadastrarUser"
+        component={CadastrarUser}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="EditarUser"
+        component={EditarUser}
         options={{
           headerShown: false
         }}
@@ -100,14 +156,14 @@ const App = () => {
             )
           }}
         />
-        <Tab.Screen name="Perfil"
-          component={Perfil} options={{
+        <Tab.Screen name="MainDois"
+          component={PerfilNavigator} options={{
             headerShown: false,
             tabBarIcon: () => (
               <Feather name="user" size={24} color="black" />
             )
           }} />
-        <Tab.Screen name="Favoritos" component={Favoritos} options={{
+        <Tab.Screen name="MainTres" component={Favoritos} options={{
           headerShown: false,
           tabBarIcon: () => (
             <Feather name="heart" size={24} color="black" />

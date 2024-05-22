@@ -22,6 +22,7 @@ const Header = () => {
 
 const styles = StyleSheet.create({
     header: {
+        marginTop: 30,
         height: 40,
         display: 'flex',
         justifyContent: 'space-between',

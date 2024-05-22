@@ -8,7 +8,7 @@ import { BASE_URL } from '../config';
 
 
 
-const CadastrarProduto = () => {
+const CadastrarUser = () => {
 
     const navigation = useNavigation()
 
@@ -52,7 +52,7 @@ const CadastrarProduto = () => {
             <View style={styles.banner}>
                 <ImageBackground source={require('../assets/images/icon-pesquisar.png')}>
                 <HeaderCrud 
-                    title={"Cadastrar Produto"}/>
+                    title={"Cadastrar User"}/>
                 </ImageBackground>
             </View>
             <View style={styles.form}>
@@ -116,4 +116,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default CadastrarProduto
+export default CadastrarUser

@@ -3,21 +3,22 @@ import { useNavigation } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import Header from '../components/Header';
 import Button from '../components/Button';
-import CardProduct from '../components/CardProduct';
+import HeaderCrud from '../components/HeaderCrud';
 
 const Nome = "João Gabriel de Faria Beserra"
 const Foto = "https://adsadafvFvbavtvfadgdfg"
 const Email = "Jgabriel@gmail.com"
 const Senha = "joao123"
 
-const EditarPerfil = () => {
+const EditarUser = () => {
     const navigation = useNavigation();
 
     return (
         <View style={styles.container}>
             <View style={styles.banner}>
                 <ImageBackground source={require('../assets/images/icon-pesquisar.png')}>
-                    <Header />
+                    <HeaderCrud 
+                    title={"Editar Produto"}/>
                 </ImageBackground>
             </View>
             <View style={styles.page}>
@@ -110,4 +111,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default EditarPerfil
+export default EditarUser

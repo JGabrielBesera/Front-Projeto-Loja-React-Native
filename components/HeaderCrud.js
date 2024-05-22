@@ -3,11 +3,10 @@ import { Image } from 'expo-image'
 import Button from './Button'
 
 
-const HeaderUser = () => {
+const HeaderCrud = ({title}) => {
     return (
         <View style={styles.header}>
-            <Image style={styles.img} source={require('../assets/images/icon-pesquisar.png')} />
-            <Text> João Gabriel de Faria Beserra</Text>
+            <Text style={styles.texto}> {title}</Text>
         </View>
     )
 }
@@ -15,26 +14,27 @@ const HeaderUser = () => {
 const styles = StyleSheet.create({
     header: {
         marginTop: 30,
-        backgroundColor: '#B0A4A7',
         height: 60,
         padding: 10,
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         width: '100%',
         flexDirection: 'row',
-        border: 1 ,
-
-
+        border: 1,
+        backgroundColor: "#345944",
+        borderRadius: 50,
+        paddingVertical: 8,
+        paddingHorizontal: 28,
+        
     },
-    img: {
-        width: 40,
-        height: 40,
-        borderRadius: 360,
-        borderWidth: 1,
-        marginEnd: 10
-    }
+    texto: {
+        fontWeight: 'bold',
+        fontSize: 20,
+        color: '#FFF',
+    },
 
 
 })
 
-export default HeaderUser
+export default HeaderCrud
