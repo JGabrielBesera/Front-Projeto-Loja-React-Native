@@ -3,30 +3,35 @@ import { Image } from 'expo-image'
 import { useNavigation } from '@react-navigation/native'
 import Button from './Button'
 
-const CardUser = ({ produto }) => {
+const CardUser = ({ user }) => {
 
     const navigation = useNavigation()
 
     return (
-
+<Pressable onPress={() => navigation.navigate('EditarUser', {user})}>
         <View style={styles.card}>
             <View style={styles.avatar}>
                 <Image
                     style={styles.avatarImg}
-                    source={require('../assets/images/icon-carrinho.png')}
+                    source={user.photo}
                 />
             </View>
             <View>
-                <Text>João Gabriel  </Text>
-                <Text style={styles.email}>jgabriel@gmail.com</Text>
+                <Text>{user.nome}</Text>
+                <Text style={styles.email}>{user.email}</Text>
             </View>
             <View style={styles.button}>
                 <Button
+                     onPress={() => navigation.navigate('EditarUser', {user})}
                     title={"Visualizar"} />
             </View>
 
 
         </View>
+        </Pressable>
+        
+
+
     )
 }
 
@@ -40,8 +45,9 @@ const styles = StyleSheet.create({
         height: 100,
         backgroundColor: '#FFF',
         borderRadius: 10,
-        marginVertical: '5%',
-        marginHorizontal: '5%'
+        marginStart: '5%',
+        marginEnd: '5%',
+        marginBottom: 15
     },
     avatar: {
         marginHorizontal: 10,

@@ -4,31 +4,12 @@ import Header from '../components/Header'
 import CadastrarProduto from './CadastrarProdutos';
 import CardProduct from '../components/CardProduct';
 import { useState, useEffect } from 'react';
+import useProdutoStore from '../stores/produtoStore';
 
 const ListCamisetas = () => {
 
     const navigation = useNavigation();
-    const [produto, setProduto] = useState([]);
-    useEffect(() => {
-        const ListAllProdutos = async () => {
-            try {
-                const result = await fetch('http://localhost:3333/produtos', {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                });
-                const data = await result.json();
-                console.log(data.success);
-                setProduto(data.produtos);
-            } catch (error) {
-                console.log('Error ListAllProdutos ' + error.message);
-            }
-        };
-        ListAllProdutos();
-    }, []);
-
-
+    const produtos = useProdutoStore(state => state.produtos)
 
     return (
         <ScrollView style={styles.container}>
@@ -49,7 +30,7 @@ const ListCamisetas = () => {
                         <FlatList
                             numColumns={3}
                             style={{ width: '100%' }}
-                            data={produto.filter(item => item.categoria === 1)}
+                            data={produtos.filter(item => item.categoria === 1)}
                             renderItem={({ item }) => <CardProduct produto={item} />}
                             keyExtractor={item => item.id}
                         />

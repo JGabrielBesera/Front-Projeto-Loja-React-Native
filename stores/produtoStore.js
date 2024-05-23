@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
-const useProudutoStore = create((set) => ({
+const useProdutoStore = create((set) => ({
     produtos: [],
-    setProduto: (newProduto) => set(() => ({ produtos: newProduto })),
+    setProdutos: (newProduto) => set(() => ({ produtos: newProduto })),
     addProduto: (newProduto) => set((state) => ({ produtos: [...state.produtos, newProduto] })),
     removeProduto: (id) => set((state) => ({
         produtos: state.produtos.filter((produto) => produto.id !== id)
@@ -18,5 +18,5 @@ const useProudutoStore = create((set) => ({
     }))
 }));
 
-export default useProudutoStore;
+export default useProdutoStore;
 

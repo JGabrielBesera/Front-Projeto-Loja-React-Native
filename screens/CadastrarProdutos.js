@@ -1,14 +1,14 @@
 import { StyleSheet, ScrollView, View, TextInput, ImageBackground } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native'
 import { useState } from 'react'
 import HeaderCrud from '../components/HeaderCrud';
 import Button from '../components/Button';
 import { BASE_URL } from '../config';
-
+import useProdutoStore from '../stores/produtoStore';
 
 
 const CadastrarProduto = () => {
+    const addProduto =  useProdutoStore((state) => state.addProduto)
 
     const navigation = useNavigation()
 
@@ -37,6 +37,7 @@ const CadastrarProduto = () => {
             const data = await result.json()
             console.log(data)
             if (data?.success) {
+                addProduto(data.produto)
                 navigation.goBack()
             } else {
                 alert(data.error)

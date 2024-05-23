@@ -2,14 +2,15 @@ import { StyleSheet, TouchableOpacity, ImageBackground, Text, View, ScrollView, 
 import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
 import CardProduct from '../components/CardProduct';
+import useProdutoStore from '../stores/produtoStore';
 
 import { useState, useEffect } from 'react';
 
 
 const Home = () => {
-
+    const produtos = useProdutoStore(state => state.produtos)
+    const setProdutos = useProdutoStore(state => state.setProdutos)
     const navigation = useNavigation();
-    const [produtos, setProdutos] = useState([]);
     useEffect(() => {
         const ListAllProdutos = async () => {
             try {

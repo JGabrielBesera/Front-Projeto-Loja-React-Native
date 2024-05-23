@@ -99,39 +99,6 @@ function PerfilNavigator() {
         }}
       />
 
-      <Stack.Screen
-        name="ListBones"
-        component={ListBones}
-        options={{
-          headerShown: false
-        }}
-      />
-
-      <Stack.Screen
-        name="ListBolsas"
-        component={ListBolsas}
-        options={{
-          headerShown: false
-        }}
-      />
-
-      <Stack.Screen
-        name="EditarProduto"
-        component={EditarProduto}
-        options={{
-          headerShown: false
-        }}
-      />
-
-      {/* <Stack.Screen
-        name="CadastrarProduto"
-        component={CadastrarProduto} 
-        options={{
-          headerShown: false
-        }}
-        /> */}
-
-
     </Stack.Navigator>
 
   )

@@ -1,12 +1,11 @@
 import { StyleSheet, ScrollView, View, Text, TextInput, ImageBackground } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useState } from 'react'
-import Header from '../components/Header'
 import Button from '../components/Button';
 import ButtonRed from '../components/ButtonRed';
 import HeaderCrud from '../components/HeaderCrud';
 import { BASE_URL } from '../config';
-import useProudutoStore from '../stores/produtoStore';
+import useProdutoStore from '../stores/produtoStore';
 
 
 
@@ -14,8 +13,8 @@ const EditarProduto = () => {
 
     const route = useRoute()
 
-    const editProdutoStore = useProudutoStore((state) => state.editProduto)
-    const removeProdutoStore = useProudutoStore((state) => state.removeProduto)
+    const editProdutoStore = useProdutoStore((state) => state.editProduto)
+    const removeProdutoStore = useProdutoStore((state) => state.removeProduto)
     const { produto } = route.params
 
 
@@ -28,7 +27,7 @@ const EditarProduto = () => {
     const [txtDesc, setTxtDesc] = useState(produto.descricao)
     const [txtCat, setTxtCat] = useState(produto.categoria)
 
-    const postProduto = async () => {
+    const putProduto = async () => {
         try {
             const result = await fetch(`${BASE_URL}/produtos/${produto.id}`, {
                 method: "PUT",
@@ -48,8 +47,8 @@ const EditarProduto = () => {
             const data = await result.json();
             console.log(data);
             if (data?.success) {
-                editProdutoStore(produto.id, data.produtos);
-                console.log(data.produtos,
+                editProdutoStore(produto.id, data.produto);
+                console.log(data.produto,
                     result.status
                 )
                 navigation.goBack();
@@ -69,7 +68,7 @@ const EditarProduto = () => {
         }
     };
 
-    const removeUser = async () => {
+    const removeProduto = async () => {
         try {
             const result = await fetch(`${BASE_URL}/produtos/${produto.id}`, {
                 method: "DELETE",
@@ -130,12 +129,12 @@ const EditarProduto = () => {
                 />
                 <Button
                     title="Editar Produto"
-                    onPress={postProduto}
+                    onPress={putProduto}
                 />
                 <ButtonRed
 
                     title="Excluir Produto"
-                    onPress={removeUser}
+                    onPress={removeProduto}
                 />
             </View>
         </ScrollView>

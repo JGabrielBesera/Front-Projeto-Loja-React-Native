@@ -1,27 +1,27 @@
 import { StyleSheet, ScrollView, View, TextInput, ImageBackground } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
-import { NavigationContainer } from '@react-navigation/native'
 import { useState } from 'react'
 import HeaderCrud from '../components/HeaderCrud';
 import Button from '../components/Button';
 import { BASE_URL } from '../config';
+import useUserStore from '../stores/userStore';
 
 
 
 const CadastrarUser = () => {
-
+    const addUser =  useUserStore((state) => state.addUser)
+    
     const navigation = useNavigation()
-
     const [txtNome, setTxtNome] = useState('')
     const [txtPhoto, setTxtPhoto] = useState('')
-    const [txtPrice, setTxtPrice] = useState('')
-    const [txtDesc, setTxtDesc] = useState('')
-    const [txtCat, setTxtCat] = useState('')
+    const [txtEmail, setTxtEmail] = useState('')
+    const [txtPass, setTxtPass] = useState('')
 
-    const postProduto = async () => {
+
+    const postUser = async () => {
         try {
             //const result = await fetch('https://backend-api-express-1sem2024-rbd1.onrender.com/user', {
-            const result = await fetch(`${BASE_URL}/produtos`, {
+            const result = await fetch(`${BASE_URL}/user`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -29,14 +29,14 @@ const CadastrarUser = () => {
                 body: JSON.stringify({ 
                     nome: txtNome, 
                     photo: txtPhoto, 
-                    preco: parseInt(txtPrice), // Convertendo para inteiro
-                    descricao: txtDesc, 
-                    categoria: parseInt(txtCat) // Convertendo para inteiro
+                    pass: txtPass, 
+                    email: txtEmail, 
                 })
             })
             const data = await result.json()
             console.log(data)
             if (data?.success) {
+                addUser(data.user)
                 navigation.goBack()
             } else {
                 alert(data.error)
@@ -70,25 +70,20 @@ const CadastrarUser = () => {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Categoria...'
-                    onChangeText={setTxtCat}
-                    value={txtCat}
+                    placeholder='Email...'
+                    onChangeText={setTxtEmail}
+                    value={txtEmail}
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Preço...'
-                    onChangeText={setTxtPrice}
-                    value={txtPrice}
+                    placeholder='Senha...'
+                    onChangeText={setTxtPass}
+                    value={txtPass}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder='Descrição...'
-                    onChangeText={setTxtDesc}
-                    value={txtDesc}
-                />
+              
                 <Button
-                    title="Cadastrar Produto"
-                    onPress={postProduto}
+                    title="Cadastrar User"
+                    onPress={postUser}
                 />
             </View>
         </ScrollView>
@@ -113,6 +108,10 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginTop: 18,
         padding: 10,
+    },
+    ver: {
+        paddingStart: 40,
+        textDecorationLine: 'underline'
     }
 })
 

@@ -1,15 +1,37 @@
-import { StyleSheet, TouchableOpacity, ImageBackground, Text, TextInput, View, ScrollView } from 'react-native'
+import { StyleSheet, FlatList, View, ScrollView } from 'react-native'
 import { useNavigation } from '@react-navigation/native';
 import { Image } from 'expo-image';
 import HeaderUser from '../components/HeaderUser';
-import CardUser from '../components/CardUser';
 import Button from '../components/Button';
 import ButtonRed from '../components/ButtonRed';
+import useUserStore from '../stores/userStore';
+import { useEffect } from 'react';
+import CardUser from '../components/CardUser';
 
 
 const Perfil = () => {
     const navigation = useNavigation();
+    const users = useUserStore(state => state.users)
+    const setUsers = useUserStore(state => state.setUsers)
 
+    useEffect(() => {
+        const ListAllUsers = async () => {
+            try {
+                const result = await fetch('http://localhost:3333/user', {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                });
+                const data = await result.json();
+                console.log(data.success);
+                setUsers(data.users);
+            } catch (error) {
+                console.log('Error ListAllUsers ' + error.message);
+            }
+        };
+        ListAllUsers();
+    }, []);
     return (
         <View style={styles.container}>
             <View>
@@ -24,11 +46,13 @@ const Perfil = () => {
                     <ButtonRed title={"Sair"}/>
                 </View>
                 <ScrollView style={styles.cliente}>
-                    <CardUser />
-                    <CardUser />
-                    <CardUser />
-                    <CardUser />
-                    <CardUser />
+
+                    <FlatList
+                        data={users}
+                        style={{ width: '100%' }}
+                        renderItem={({ item }) => <CardUser user={item} />}
+                        keyExtractor={item => item.id}
+                    />
                 </ScrollView>
 
             </View>

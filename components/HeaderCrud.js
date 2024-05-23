@@ -1,12 +1,19 @@
-import { StyleSheet, Text, View, TextInput } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { Image } from 'expo-image'
 import Button from './Button'
+import { useNavigation } from '@react-navigation/native';
 
-
-const HeaderCrud = ({title}) => {
+const HeaderCrud = ({ title }) => {
+    const navigation = useNavigation()
     return (
         <View style={styles.header}>
-            <Text style={styles.texto}> {title}</Text>
+            <View><Text style={styles.texto}>{title}</Text></View>
+            <View><TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={styles.ver}>Voltar</Text>
+            </TouchableOpacity>
+            </View>
+
+
         </View>
     )
 }
@@ -26,7 +33,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         paddingVertical: 8,
         paddingHorizontal: 28,
-        
+
     },
     texto: {
         fontWeight: 'bold',
