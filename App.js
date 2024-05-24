@@ -6,14 +6,17 @@ import { StyleSheet } from 'react-native';
 import Home from './screens/Home';
 import ListCamisetas from './screens/ListCamisetas';
 import ListBones from './screens/ListBones';
+import Splash from './screens/Splash';
 import ListBolsas from './screens/ListBolsas';
 import EditarProduto from './screens/EditarProduto';
 import CadastrarProduto from './screens/CadastrarProdutos';
+import Login from './screens/Login';
 import CadastrarUser from './screens/CadastrarUser';
 import Favoritos from './screens/Favoritos';
 import Perfil from './screens/Perfil';
 import EditarUser from './screens/EditarUser';
 import { Feather } from '@expo/vector-icons'
+
 
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
@@ -23,16 +26,23 @@ function MainNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen
-        name="Main"
-        component={Home}
+        name="Splash"
+        component={Splash}
         options={{
           headerShown: false
         }}
       />
 
       <Stack.Screen
-        name="CadastrarProduto"
-        component={CadastrarProduto}
+        name="Login"
+        component={Login}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="CadastrarUser"
+        component={CadastrarUser}
         options={{
           headerShown: false
         }}
@@ -64,6 +74,20 @@ function MainNavigator() {
       <Stack.Screen
         name="EditarProduto"
         component={EditarProduto}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="CadastrarProduto"
+        component={CadastrarProduto}
+        options={{
+          headerShown: false
+        }}
+      />
+      <Stack.Screen
+        name="Home"
+        component={Home}
         options={{
           headerShown: false
         }}

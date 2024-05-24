@@ -3,30 +3,12 @@ import { useNavigation } from '@react-navigation/native';
 import Header from '../components/Header'
 import CardProduct from '../components/CardProduct';
 import { useState, useEffect } from 'react';
+import useProdutoStore from '../stores/produtoStore';
 
 const ListBones = () => {
 
     const navigation = useNavigation();
-    const [produto, setProduto] = useState([]);
-    useEffect(() => {
-        const ListAllProdutos = async () => {
-            try {
-                const result = await fetch('http://localhost:3333/produtos', {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                });
-                const data = await result.json();
-                console.log(data.success);
-                setProduto(data.produtos);
-            } catch (error) {
-                console.log('Error ListAllProdutos ' + error.message);
-            }
-        };
-        ListAllProdutos();
-    }, []);
-
+    const produtos = useProdutoStore(state => state.produtos)
 
 
     return (
@@ -48,7 +30,7 @@ const ListBones = () => {
                         <FlatList
                             numColumns={3}
                             style={{ width: '100%' }}
-                            data={produto.filter(item => item.categoria === 2)}
+                            data={produtos.filter(item => item.categoria === 2)}
                             renderItem={({ item }) => <CardProduct produto={item} />}
                             keyExtractor={item => item.id}
                         />

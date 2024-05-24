@@ -1,7 +1,6 @@
-import {View, StyleSheet, TextInput} from 'react-native'
-import Button from '../components/ui/Button'
+import {View, Text, StyleSheet, TextInput} from 'react-native'
+import Button from '../components/Button.js'
 import { useNavigation } from '@react-navigation/native'
-import H1 from '../components/ui/H1.js'
 import { useState } from 'react'
 import useUserLoggedStore from '../stores/useUserLoggedStore.js'
 
@@ -47,7 +46,7 @@ const Login = () => {
 
   return (
     <View style={styles.container}>
-      <H1>Entrar</H1>
+      <Text> Entrar </Text>
 
       <TextInput 
         style={styles.input}
@@ -69,7 +68,7 @@ const Login = () => {
       />
       <Button 
         title="Cadastrar"
-        onPress={() => navigation.navigate('Cadastrar')}
+        onPress={() => navigation.navigate('CadastrarUser')}
       />
     </View>
   )
